@@ -1,0 +1,8 @@
+// One decoded, gapless buffer. Every stop invalidates pending resume/load work.
+export class ClapAudio {
+ constructor({contextFactory=()=>new (window.AudioContext||window.webkitAudioContext)(),fetcher=url=>fetch(url)}={}){this.factory=contextFactory;this.fetcher=fetcher;this.context=null;this.bufferPromise=null;this.source=null;this.gain=null;this.epoch=0}
+ unlock(){if(!this.context)this.context=this.factory();return this.context.resume()}
+ load(){if(!this.bufferPromise)this.bufferPromise=this.fetcher('clap-sync.wav').then(r=>{if(!r.ok)throw Error('Audio unavailable');return r.arrayBuffer()}).then(b=>this.context.decodeAudioData(b)).catch(e=>{this.bufferPromise=null;throw e});return this.bufferPromise}
+ stop(){this.epoch++;const s=this.source,g=this.gain;this.source=null;this.gain=null;if(s){try{const t=this.context.currentTime;g.gain.cancelScheduledValues(t);g.gain.setValueAtTime(g.gain.value,t);g.gain.linearRampToValueAtTime(0,t+.008);s.stop(t+.01)}catch{}s.onended=()=>{s.disconnect();g.disconnect()}}}
+ async play(allowed,phase){this.stop();const epoch=this.epoch;await this.unlock();const buffer=await this.load();if(epoch!==this.epoch||!allowed())return false;const source=this.context.createBufferSource(),gain=this.context.createGain();source.buffer=buffer;source.loop=true;source.loopStart=0;source.loopEnd=buffer.duration;source.connect(gain);gain.connect(this.context.destination);const now=this.context.currentTime;gain.gain.setValueAtTime(0,now);gain.gain.linearRampToValueAtTime(1,now+.008);this.source=source;this.gain=gain;source.start(now,phase()%buffer.duration);return true}
+}
