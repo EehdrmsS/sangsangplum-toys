@@ -1,4 +1,4 @@
-// One uninterrupted source; further inputs extend its scheduled stop by 0.3 s.
+// One uninterrupted source; further inputs extend its scheduled stop by the selected duration.
 export class RapTransport {
   constructor(context,buffer) { this.context=context;this.buffer=buffer;this.cursor=0;this.source=null;this.begin=0;this.end=0;this.offset=0;this.count=0; }
   settle() {
@@ -7,8 +7,9 @@ export class RapTransport {
       this.source.onended=null;this.source.disconnect();this.source=null;
     }
   }
-  add(count=1) {
-    this.settle(); const extra=count*.3;
+  add(count=1,seconds=.3) {
+    if(!Number.isFinite(seconds)||seconds<.1||seconds>1)throw new RangeError("Duration must be 0.1 to 1 second");
+    this.settle(); const extra=count*seconds;
     if(this.source) { this.end+=extra;this.source.stop(this.end); }
     else {
       const source=this.context.createBufferSource();source.buffer=this.buffer;source.loop=true;source.connect(this.context.destination);
