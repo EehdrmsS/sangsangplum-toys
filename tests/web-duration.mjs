@@ -1,0 +1,13 @@
+import assert from 'node:assert/strict';
+import {RapTransport} from '../web/usagi-rap/transport.js';
+const nodes=[];
+const context={currentTime:0,destination:{},createBufferSource(){const n={connect(){},disconnect(){},start(t,o){this.offset=o},stop(t){this.end=t}};nodes.push(n);return n}};
+const t=new RapTransport(context,{duration:10});
+t.add(3);assert.ok(Math.abs(t.remaining-.9)<1e-9);
+t.add(1,.5);assert.equal(nodes.length,1);assert.ok(Math.abs(t.remaining-1.4)<1e-9,'New duration must not resize prior credits');
+context.currentTime=2;assert.ok(Math.abs(t.position-1.4)<1e-9);
+t.add(3,.1);assert.ok(Math.abs(nodes[1].offset-1.4)<1e-9);assert.ok(Math.abs(t.remaining-.3)<1e-9);
+assert.throws(()=>t.add(1,NaN));assert.throws(()=>t.add(1,0));assert.throws(()=>t.add(1,1.1));
+t.pause();const cursor=t.position;context.currentTime=9;assert.equal(t.position,cursor);
+t.reset();assert.equal(t.position,0);
+console.log('PASS: default .3; mixed-duration accumulation; exact resume; bounds; pause/reset');

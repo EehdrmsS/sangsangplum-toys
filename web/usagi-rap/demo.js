@@ -1,42 +1,41 @@
+import {TypingInput} from './input.js';
 import {RapTransport} from './transport.js';
 const $=id=>document.getElementById(id);
-const typing=$('typing'),start=$('start'),tap=$('tap'),pause=$('pause'),reset=$('reset'),pet=$('pet'),message=$('message'),stage=$('stage');
-let context,transport,loading=false,enabled=false,lastPhysical=-Infinity,composing=false,compositionCredit='';
-const graphemes=new Intl.Segmenter('ko',{granularity:'grapheme'});
-const length=text=>[...graphemes.segment(text||'')].length;
+const typing=$('typing'),start=$('start'),shorter=$('shorter'),longer=$('longer'),pause=$('pause'),reset=$('reset'),pet=$('pet'),message=$('message'),stage=$('stage');
+let context,transport,loading=false,enabled=false,audioEpoch=0,seconds=.3;
+const edits=new TypingInput();
 function say(text){message.textContent=text;}
-function add(count=1){if(!enabled||!transport)return;transport.add(count);say('입력한 만큼 랩이 이어집니다.');}
+function wakeAudio(){return context&&context.state!=='running'?context.resume():Promise.resolve();}
+function add(count=1){if(!enabled||!transport||count<=0)return;const epoch=audioEpoch,credit=seconds;wakeAudio().then(()=>{if(!enabled||epoch!==audioEpoch)return;transport.add(count,credit);say('입력한 만큼 랩이 이어집니다.');}).catch(()=>say('소리가 멈췄어요. 일시정지 후 다시 시작해 주세요.'));}
 async function enable(){
   if(loading)return;loading=true;start.disabled=true;say('소리를 준비하고 있어요…');
   try{
-    context ||= new AudioContext();await context.resume();
+    const Audio=window.AudioContext||window.webkitAudioContext;
+    context ||= new Audio();const resumed=context.resume();
+    const unlock=context.createBufferSource();unlock.buffer=context.createBuffer(1,1,context.sampleRate);unlock.connect(context.destination);unlock.onended=()=>unlock.disconnect();unlock.start();
+    typing.disabled=false;typing.focus({preventScroll:true});await resumed;
     if(!transport){const response=await fetch('rap.wav');if(!response.ok)throw new Error('audio fetch');transport=new RapTransport(context,await context.decodeAudioData(await response.arrayBuffer()));}
-    enabled=true;typing.disabled=false;tap.disabled=pause.disabled=reset.disabled=false;start.textContent='체험 중';
-    say('입력창에 타자를 쳐보세요. 입력 1번마다 0.3초씩 재생됩니다.');typing.focus({preventScroll:true});
-  }catch(error){enabled=false;start.textContent='다시 시작';say('소리를 준비하지 못했어요. 다시 시작해 주세요.');}
+    enabled=true;edits.reset(typing.value);typing.disabled=false;pause.disabled=reset.disabled=false;start.textContent='체험 중';
+    say(`입력창에 타자를 쳐보세요. 입력 1번마다 ${seconds.toFixed(1)}초씩 재생됩니다.`);typing.focus({preventScroll:true});
+  }catch(error){enabled=false;typing.disabled=true;start.textContent='다시 시작';say('소리를 준비하지 못했어요. 다시 시작해 주세요.');}
   finally{loading=false;start.disabled=enabled;}
 }
 start.addEventListener('click',enable);
-tap.addEventListener('click',()=>add());
-pause.addEventListener('click',()=>{transport?.pause();enabled=false;typing.disabled=true;tap.disabled=pause.disabled=true;start.disabled=false;start.textContent='이어서 체험';say('멈춘 위치를 기억하고 있어요. 다시 시작한 뒤 입력해 주세요.');});
-reset.addEventListener('click',()=>{transport?.reset();say('음원 처음으로 돌아왔습니다.');if(enabled)typing.focus({preventScroll:true});});
-typing.addEventListener('keydown',event=>{
-  if(!enabled||event.ctrlKey||event.metaKey||event.altKey)return;
-  const physical=/^(Key[A-Z]|Digit\d|Numpad\d|Numpad(Add|Subtract|Multiply|Divide|Decimal)|Space|Semicolon|Equal|Comma|Minus|Period|Slash|Backquote|BracketLeft|Backslash|BracketRight|Quote)$/.test(event.code);
-  if(physical){lastPhysical=performance.now();add();}
-});
-typing.addEventListener('compositionstart',()=>{composing=true;compositionCredit='';});
-typing.addEventListener('compositionend',event=>{
-  composing=false;
-  if(enabled&&performance.now()-lastPhysical>600&&event.data){add(length(event.data));compositionCredit=event.data;}
-});
-typing.addEventListener('input',event=>{
-  if(!enabled||composing||event.isComposing||performance.now()-lastPhysical<600)return;
-  if(compositionCredit&&event.data===compositionCredit){compositionCredit='';return;}
-  compositionCredit='';
-  if(event.inputType?.startsWith('insert')&&event.data)add(length(event.data));
-});
-function stopHidden(){transport?.pause();enabled=false;typing.disabled=true;tap.disabled=pause.disabled=true;start.disabled=false;start.textContent='이어서 체험';say('화면을 벗어나 재생을 멈췄습니다. 다시 시작해 주세요.');}
+function changeLength(delta){
+  seconds=Math.max(.1,Math.min(1,Math.round((seconds+delta)*10)/10));
+  $('duration').textContent=seconds.toFixed(1)+'초';
+  $('credit-hint').textContent=`입력 1번 = 원음 ${seconds.toFixed(1)}초`;
+  $('single-example').textContent=seconds.toFixed(1);$('triple-example').textContent=(seconds*3).toFixed(1);
+  shorter.disabled=seconds<=.1;longer.disabled=seconds>=1;
+  say(`다음 입력부터 ${seconds.toFixed(1)}초씩 이어집니다.`);
+}
+shorter.addEventListener('click',()=>changeLength(-.1));
+longer.addEventListener('click',()=>changeLength(.1));
+pause.addEventListener('click',()=>{audioEpoch++;transport?.pause();enabled=false;typing.disabled=true;pause.disabled=true;start.disabled=false;start.textContent='이어서 체험';say('멈춘 위치를 기억하고 있어요. 다시 시작한 뒤 입력해 주세요.');});
+reset.addEventListener('click',()=>{audioEpoch++;transport?.reset();say('음원 처음으로 돌아왔습니다.');if(enabled)typing.focus({preventScroll:true});});
+typing.addEventListener('pointerdown',()=>{if(enabled)wakeAudio().catch(()=>{});});
+typing.addEventListener('input',event=>{const count=edits.accept(event,typing.value);if(enabled)add(count);});
+function stopHidden(){audioEpoch++;transport?.pause();enabled=false;typing.disabled=true;pause.disabled=true;start.disabled=false;start.textContent='이어서 체험';say('화면을 벗어나 재생을 멈췄습니다. 다시 시작해 주세요.');}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopHidden();});
 window.addEventListener('pagehide',()=>transport?.pause());
 $('fullscreen').addEventListener('click',async()=>{
