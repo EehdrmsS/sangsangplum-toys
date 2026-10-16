@@ -39,3 +39,9 @@ textarea{left:20px;top:70px;width:calc(100% - 40px);font-size:25px;height:280px}
 .duration-control output{min-width:48px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
 @media(max-width:600px){.toolbar .duration-control{flex:1 1 100%;justify-content:center}
 .toolbar .duration-control button{flex:0 0 44px}}
+
+.experience-tabs{display:flex;gap:8px;margin:0 0 20px;scroll-margin-top:24px}.experience-tabs [aria-selected="true"]{background:var(--toy-accent);border-color:var(--toy-accent);color:#fff}.experience-tabs button{flex:0 1 auto}
+.stage.challenge-mode:fullscreen{height:100vh;width:100vw}
+.stage.challenge-mode:fullscreen textarea{top:25%;height:18%;font-size:clamp(24px,3vw,46px)}
+#challenge-prompt{position:absolute;left:30px;right:30px;top:66px;z-index:3}.challenge-caption{display:flex;justify-content:space-between;gap:12px;color:#d8c6d7;font-size:12px}.challenge-caption strong{font-weight:600}#challenge-progress{font-variant-numeric:tabular-nums;white-space:nowrap}#challenge-target{font:22px/1.8 'Malgun Gothic',sans-serif;color:#b9b2bb;white-space:pre-wrap;margin:14px 0 0}#challenge-target .correct{color:#b7dfb6}#challenge-target .next{border-bottom:2px solid #e1bbdb}.stage.challenge-mode{height:650px}.challenge-mode textarea{top:210px;height:120px}.challenge-mode .pet{bottom:48px;width:300px}.stage[data-challenge="lost"]{border-color:#be6c75}.stage[data-challenge="won"]{border-color:#7fae86}.stage:fullscreen #challenge-prompt{top:10%}.stage.challenge-mode:fullscreen textarea{top:25%;height:18%}
+@media(max-width:750px){#challenge-prompt{left:20px;right:20px}.challenge-caption{font-size:11px;flex-wrap:wrap}#challenge-target{font-size:20px}.stage.challenge-mode{height:700px}.challenge-mode textarea{top:250px;height:130px}.challenge-mode .pet{bottom:44px;width:290px}.experience-tabs button{flex:1}.stage.challenge-mode:fullscreen textarea{top:38%;height:18%}}

@@ -21,6 +21,8 @@ for page in pages:
     assert f'https://github.com/EehdrmsS/sangsangplum-toys/tree/main/{slug}' in p.links
     assert 'https://github.com/EehdrmsS/sangsangplum-toys#소스-내려받기와-실행' in p.links
     assert not any('/downloads/' in x for x in p.links)
+    if slug=='usagi-rap':
+        assert all(x in p.ids for x in ['free-tab','challenge-tab','typing-panel','challenge-target','challenge-progress'])
     for identity in (['try','inline','push','cat','close','sound','reset'] if slug=='clap-cat' else ['start','shorter','longer','duration','pause','reset','typing','pet','stage','fullscreen','exit-fullscreen']):
         assert identity in p.ids,f'Missing interaction ID {slug}/{identity}'
 assert not list((root/'web').rglob('*.zip*')) and not list((root/'web').rglob('*.exe'))

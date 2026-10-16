@@ -1,0 +1,14 @@
+import assert from 'node:assert/strict';
+import {RapChallenge,RAP_LINE} from '../web/usagi-rap/challenge.js';
+const c=new RapChallenge();
+c.accept('ㅎ',true);assert.equal(c.phase,'typing');assert.equal(c.progress,0);
+c.tick(0,false);assert.equal(c.phase,'typing','No failure before first audio credit');
+c.accept('하',false);assert.equal(c.progress,1);assert.equal(c.phase,'typing');
+c.accept('햐',true);assert.equal(c.phase,'typing','Do not fail an unfinished IME syllable');
+c.accept('하야',false);assert.equal(c.progress,2);
+c.tick(.2,true);assert.equal(c.phase,'typing');c.tick(0,true);assert.equal(c.phase,'lost');
+c.reset();c.accept('허');assert.equal(c.phase,'lost');c.accept(RAP_LINE);assert.equal(c.phase,'lost');
+c.reset();c.accept(RAP_LINE);assert.equal(c.phase,'won');c.tick(0,true);assert.equal(c.phase,'won');
+c.reset();assert.equal(c.progress,0);assert.equal(c.phase,'ready');
+const n=new RapChallenge('하');n.accept('\u1112\u1161');assert.equal(n.phase,'won','Normalize composed Hangul');
+console.log('PASS: IME partial syllables; exact typo check; gap failure; completion; retry; NFC');

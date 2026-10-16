@@ -74,3 +74,9 @@ Two small toys by Sangsangplum. Try them in your browser using the links above. 
 python scripts/render-toy-pages.py
 python scripts/check-toy-pages.py
 ```
+
+## 우사기 랩 가사 도전
+
+[우사기 랩 도전 탭](https://sangsangplum.pages.dev/usagi-rap/#challenge)에서 첫 소절을 오타 없이 이어 쳐보세요. 오타 또는 재생 분량 소진 시 종료되며 다시 도전할 수 있습니다. 시작 전 입력당 길이를 조절할 수 있습니다. 기존 자유 입력 체험도 그대로 사용할 수 있습니다.
+
+판정 검사: `node scripts/test-rap-challenge.mjs`
