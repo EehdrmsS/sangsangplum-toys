@@ -65,3 +65,12 @@ python -m http.server 8080 --directory web
 ---
 
 Two small toys by Sangsangplum. Try them in your browser using the links above. This repository shares the desktop and web source; it does not distribute Windows executables. Media rights remain with their respective owners. The Clap Cat web demo does not detect local Git pushes. Usagi Rap reacts only inside its web demo input field.
+
+## 체험 페이지 디자인 규칙
+
+[공통 디자인 규칙](docs/SERVICE_PAGE_DESIGN.md)에 따라 같은 템플릿과 CSS로 두 페이지를 만듭니다. 개별 체험 DOM과 문구를 수정한 다음 생성·검증하세요.
+
+```powershell
+python scripts/render-toy-pages.py
+python scripts/check-toy-pages.py
+```
