@@ -1,0 +1,56 @@
+[
+  {
+    "slug": "clap-cat",
+    "name": "Clap Cat",
+    "eyebrow": "CLAP CAT · BROWSER DEMO",
+    "title": "작은 성공에도,<br>고양이가 <em>박수.</em>",
+    "description": "설치 없이 고양이에게 간식을 주고 박수, 쉿과 악수를 체험하세요.",
+    "lead": "간식 하나에 박수는 듬뿍.<br>클릭하면 조용해지고, 악수로 마무리해요.",
+    "image_alt": "박수치는 검은 고양이",
+    "experience_title": "간식을 주고, 응원을 받아보세요.",
+    "scope": "웹 체험은 실제 Git push를 감지하지 않아요.",
+    "script": "demo.js",
+    "steps": [
+      [
+        "고양이를 띄우면",
+        "지원 브라우저에서는 작은 플로팅 창이 열립니다. 그 외 환경은 페이지 안에서 체험할 수 있어요."
+      ],
+      [
+        "간식을 주면",
+        "고양이가 간식을 먹고 박수를 칩니다. 클릭하기 전까지 계속 응원해 줘요."
+      ],
+      [
+        "고양이를 누르면",
+        "박수를 멈추고 쉿, 그리고 악수합니다. 간식은 언제든 다시 줄 수 있어요."
+      ]
+    ],
+    "credits": "Cat footage: <a href=\"https://www.tiktok.com/@merkurianin/video/7689433455318387975\" target=\"_blank\" rel=\"noopener noreferrer\">@merkurianin ↗</a> · GitHub mark: GitHub.<br>영상·캐릭터의 권리는 원작자에게 있습니다. GitHub 공식 제품이 아닙니다."
+  },
+  {
+    "slug": "usagi-rap",
+    "name": "우사기 랩",
+    "eyebrow": "USAGI RAP · BROWSER DEMO",
+    "title": "타자 칠 때마다,<br>우사기가 <em>랩함.</em>",
+    "description": "입력할 때마다 원음이 이어지는 우사기 랩을 설치 없이 체험하세요.",
+    "lead": "한 번 누르면 <span id=\"single-example\">0.3</span>초.<br>세 번 누르면 <span id=\"triple-example\">0.9</span>초.<br>잠깐 쉬어도, 랩은 그 자리에서 기다립니다.",
+    "image_alt": "마이크를 들고 있는 원본 영상 속 우사기",
+    "experience_title": "키보드가 조금 시끄러워집니다.",
+    "scope": "이 페이지의 입력창에서만 반응해요.",
+    "script": "demo.js?v=20261016-duration",
+    "steps": [
+      [
+        "타자를 치면",
+        "입력마다 선택한 길이만큼 재생 시간이 쌓입니다. 빠르게 쳐도 소리가 건너뛰지 않아요."
+      ],
+      [
+        "손을 멈추면",
+        "쌓인 분량만큼 재생한 뒤 멈춥니다. 우사기도 정지 자세로 돌아옵니다."
+      ],
+      [
+        "다시 입력하면",
+        "멈춘 위치부터 이어집니다. 음원이 끝나면 처음으로 돌아가요."
+      ]
+    ],
+    "credits": "영상: <a href=\"https://www.youtube.com/watch?v=sT1A-4zjKqQ\" target=\"_blank\" rel=\"noopener noreferrer\">東宝MOVIEチャンネル 공식 WEBCM ↗</a> · <a href=\"https://www.youtube.com/shorts/62KKrmmfrN8\" target=\"_blank\" rel=\"noopener noreferrer\">음원 참고 영상 ↗</a><br>캐릭터·영상·음원의 권리는 각 권리자에게 있습니다. 원본에서 배경을 제거했으며 생성 이미지는 사용하지 않았습니다."
+  }
+]
