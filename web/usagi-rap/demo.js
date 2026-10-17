@@ -32,7 +32,7 @@ function paintChallenge(){
   if(i<challenge.progress)span.classList.add('correct');else if(i===challenge.progress)span.classList.add('next');
   target.append(span);if(char==='\n')target.append(document.createElement('br'));
  }
- const next=target.querySelector('.next');if(next)target.scrollTop=Math.max(0,next.offsetTop-target.clientHeight/3);
+ const next=target.querySelector('.next');if(next)target.scrollTop=Math.max(0,next.offsetTop-8);
  $('challenge-progress').textContent=`${challenge.progress} / ${RAP_LINE.length}`;
  stage.dataset.challenge=challenge.phase;
  $('challenge-success').hidden=!challengeMode||challenge.phase!=='won';
