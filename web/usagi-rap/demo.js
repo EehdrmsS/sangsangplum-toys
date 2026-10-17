@@ -16,7 +16,7 @@ async function enable(){
     context ||= new Audio();const resumed=context.resume();
     const unlock=context.createBufferSource();unlock.buffer=context.createBuffer(1,1,context.sampleRate);unlock.connect(context.destination);unlock.onended=()=>unlock.disconnect();unlock.start();
     typing.disabled=false;typing.focus({preventScroll:true});await resumed;
-    if(!transport){const response=await fetch('rap.wav');if(!response.ok)throw new Error('audio fetch');transport=new RapTransport(context,await context.decodeAudioData(await response.arrayBuffer()));}
+    if(!transport){const response=await fetch('rap-full.wav');if(!response.ok)throw new Error('audio fetch');transport=new RapTransport(context,await context.decodeAudioData(await response.arrayBuffer()));}
     if(epoch!==audioEpoch)return;
     enabled=true;edits.reset(typing.value);typing.disabled=false;pause.disabled=reset.disabled=false;start.textContent='체험 중';
     say(challengeMode?'첫 글자부터 시작! 가사를 보고 이어서 쳐보세요.':`입력창에 타자를 쳐보세요. 입력 1번마다 ${seconds.toFixed(1)}초씩 재생됩니다.`);typing.focus({preventScroll:true});
@@ -25,9 +25,17 @@ async function enable(){
 }
 function paintChallenge(){
  const target=$('challenge-target');target.replaceChildren();
- for(const [i,char] of [...RAP_LINE].entries()){const span=document.createElement('span');span.textContent=char;if(i<challenge.progress)span.className='correct';else if(i===challenge.progress)span.className='next';target.append(span);}
+ for(const [i,char] of [...RAP_LINE].entries()){
+  const span=document.createElement('span');span.className='lyric-cell';
+  span.textContent=char==='\n'?'↵':char===' '?'·':char;
+  if(char===' '||char==='\n')span.classList.add('separator');
+  if(i<challenge.progress)span.classList.add('correct');else if(i===challenge.progress)span.classList.add('next');
+  target.append(span);if(char==='\n')target.append(document.createElement('br'));
+ }
+ const next=target.querySelector('.next');if(next)target.scrollTop=Math.max(0,next.offsetTop-target.clientHeight/3);
  $('challenge-progress').textContent=`${challenge.progress} / ${RAP_LINE.length}`;
  stage.dataset.challenge=challenge.phase;
+ $('challenge-success').hidden=!challengeMode||challenge.phase!=='won';
   if(challengeMode){shorter.disabled=challenge.phase==='typing'||seconds<=.1;longer.disabled=challenge.phase==='typing'||seconds>=1;}
 }
 function finishChallenge(){
@@ -44,12 +52,13 @@ function selectTab(mode){
  for(const [id,selected] of [['free-tab',!mode],['challenge-tab',mode]]){$(id).setAttribute('aria-selected',String(selected));$(id).tabIndex=selected?0:-1;}
  $('typing-panel').setAttribute('aria-labelledby',mode?'challenge-tab':'free-tab');
  start.disabled=false;start.textContent=mode?'도전 시작':'소리 켜고 체험 시작';shorter.disabled=seconds<=.1;longer.disabled=seconds>=1;
- say(mode?'오타 없이, 랩이 멈추기 전에 한 줄을 완성해 보세요.':'시작 버튼을 누르면 소리가 준비됩니다.');paintChallenge();
+ say(mode?'오타 없이, 랩이 멈추기 전에 전체 가사를 완성해 보세요.':'시작 버튼을 누르면 소리가 준비됩니다.');paintChallenge();
 }
 start.addEventListener('click',async()=>{
  if(challengeMode){audioEpoch++;transport?.reset();challenge.reset();typing.value='';edits.reset('');paintChallenge();}
  await enable();
 });
+$('challenge-retry').addEventListener('click',()=>start.click());
 for(const [id,mode] of [['free-tab',false],['challenge-tab',true]]){
  $(id).addEventListener('click',()=>selectTab(mode));
  $(id).addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const next=e.key==='Home'?false:e.key==='End'?true:!challengeMode;selectTab(next);$(next?'challenge-tab':'free-tab').focus();});
