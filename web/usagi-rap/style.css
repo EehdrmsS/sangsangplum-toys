@@ -74,12 +74,14 @@ textarea{left:20px;top:70px;width:calc(100% - 40px);font-size:25px;height:280px}
 .stage.challenge-mode textarea{top:420px;height:80px;font-size:25px;line-height:1.5}
 .stage.challenge-mode .pet{width:280px;bottom:44px}
 @media(max-width:750px){
- .stage.challenge-mode{height:820px}
- .stage.challenge-mode #challenge-target{height:320px;max-height:320px;font-size:18px}
- .stage.challenge-mode textarea{top:445px;height:82px;font-size:23px}
+ .stage.challenge-mode{height:860px}
+ .stage.challenge-mode #challenge-target{height:360px;max-height:360px;font-size:16px}
+ .stage.challenge-mode textarea{top:485px;height:82px;font-size:23px}
  .stage.challenge-mode .pet{width:260px;bottom:48px}
 }
 .stage.challenge-mode:fullscreen{height:100vh;--lyrics-height:clamp(190px,36vh,350px)}
 .stage.challenge-mode:fullscreen #challenge-target{height:var(--lyrics-height);max-height:var(--lyrics-height);font-size:clamp(17px,1.7vw,24px)}
 .stage.challenge-mode:fullscreen textarea{top:calc(10% + var(--lyrics-height) + 60px);height:clamp(56px,8vh,82px);font-size:clamp(23px,2.3vw,34px);line-height:1.45}
 .stage.challenge-mode:fullscreen .pet{width:clamp(140px,28vh,280px);right:50%;transform:translateX(50%);bottom:10%}
+
+@media(max-width:750px){.stage.challenge-mode:fullscreen #challenge-target{font-size:16px}}
