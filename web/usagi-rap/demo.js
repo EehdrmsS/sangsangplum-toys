@@ -36,6 +36,12 @@ function paintChallenge(){
  $('challenge-progress').textContent=`${challenge.progress} / ${RAP_LINE.length}`;
  stage.dataset.challenge=challenge.phase;
  $('challenge-success').hidden=!challengeMode||challenge.phase!=='won';
+ $('challenge-failure').hidden=!challengeMode||challenge.phase!=='lost';
+ if(challenge.phase==='lost'){
+  $('failure-title').textContent=challenge.reason.includes('오타')?'앗, 오타!':challenge.reason.includes('끊겼')?'랩이 끊겼어요!':'아깝다! 다시 도전';
+  $('failure-reason').textContent=challenge.reason;
+  $('failure-progress').textContent=`${challenge.progress} / ${RAP_LINE.length}자 성공`;
+ }
   if(challengeMode){shorter.disabled=challenge.phase==='typing'||seconds<=.1;longer.disabled=challenge.phase==='typing'||seconds>=1;}
 }
 function finishChallenge(){
@@ -59,6 +65,7 @@ start.addEventListener('click',async()=>{
  await enable();
 });
 $('challenge-retry').addEventListener('click',()=>start.click());
+$('failure-retry').addEventListener('click',()=>start.click());
 for(const [id,mode] of [['free-tab',false],['challenge-tab',true]]){
  $(id).addEventListener('click',()=>selectTab(mode));
  $(id).addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const next=e.key==='Home'?false:e.key==='End'?true:!challengeMode;selectTab(next);$(next?'challenge-tab':'free-tab').focus();});

@@ -65,3 +65,5 @@ textarea{left:20px;top:70px;width:calc(100% - 40px);font-size:25px;height:280px}
 .success-card{max-width:520px;padding:40px 30px;border:1px solid #aa88b4;border-radius:20px;background:#342b3c;box-shadow:0 20px 70px #0005;color:#faf7f1}
 .success-eyebrow{font-size:13px;letter-spacing:.2em;color:#d8b8e3}.success-card h2{font-size:clamp(25px,4vw,42px);margin:16px 0}.success-card p{line-height:1.8}.success-card button{margin-top:20px}
 .stage:fullscreen .challenge-success{top:8%}
+
+.challenge-failure .success-card{border-color:#cf8190;background:#3d2a32}.challenge-failure .success-eyebrow{color:#f0aaba}.challenge-failure h2{color:#ffdce2}
