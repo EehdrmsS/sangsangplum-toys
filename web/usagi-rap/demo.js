@@ -1,5 +1,5 @@
-import {RapChallenge,RAP_LINE} from './challenge.js';
-import {TypingInput} from './input.js';
+import {RapChallenge,RAP_LINE} from './challenge.js?v=20261018-ime';
+import {TypingInput} from './input.js?v=20261018-ime';
 import {RapTransport} from './transport.js';
 const $=id=>document.getElementById(id);
 const typing=$('typing'),start=$('start'),shorter=$('shorter'),longer=$('longer'),pause=$('pause'),reset=$('reset'),pet=$('pet'),message=$('message'),stage=$('stage');
@@ -72,7 +72,13 @@ for(const [id,mode] of [['free-tab',false],['challenge-tab',true]]){
 }
 typing.addEventListener('paste',e=>{if(challengeMode&&enabled){e.preventDefault();challenge.fail('붙여넣기 대신 직접 타이핑으로 도전해 보세요.');finishChallenge();}});
 typing.addEventListener('beforeinput',e=>{if(challengeMode&&enabled&&['insertFromPaste','insertFromDrop'].includes(e.inputType)){e.preventDefault();challenge.fail('붙여넣기 대신 직접 타이핑으로 도전해 보세요.');finishChallenge();}});
-typing.addEventListener('compositionend',()=>{if(challengeMode&&enabled)judge(false);});
+typing.addEventListener('compositionstart',()=>edits.beginComposition());
+typing.addEventListener('compositionupdate',()=>edits.beginComposition());
+typing.addEventListener('compositionend',()=>{
+ edits.endComposition();const epoch=audioEpoch;
+ // Safari may deliver the final input after compositionend.
+ requestAnimationFrame(()=>{if(epoch===audioEpoch&&challengeMode&&enabled&&!edits.composing)judge(false);});
+});
 if(location.hash==='#challenge')selectTab(true);
 function changeLength(delta){
   seconds=Math.max(.1,Math.min(1,Math.round((seconds+delta)*10)/10));
@@ -87,7 +93,7 @@ longer.addEventListener('click',()=>changeLength(.1));
 pause.addEventListener('click',()=>{if(challengeMode){challenge.fail('잠시 쉬었어요. 다시 도전해 보세요.');finishChallenge();return;}audioEpoch++;transport?.pause();enabled=false;typing.disabled=true;pause.disabled=true;start.disabled=false;start.textContent='이어서 체험';say('멈춘 위치를 기억하고 있어요. 다시 시작한 뒤 입력해 주세요.');});
 reset.addEventListener('click',()=>{audioEpoch++;transport?.reset();say('음원 처음으로 돌아왔습니다.');if(enabled)typing.focus({preventScroll:true});});
 typing.addEventListener('pointerdown',()=>{if(enabled)wakeAudio().catch(()=>{});});
-typing.addEventListener('input',event=>{const count=edits.accept(event,typing.value);if(enabled){if(challengeMode)judge(event.isComposing||event.inputType==='insertCompositionText');if(enabled)add(count);}});
+typing.addEventListener('input',event=>{const count=edits.accept(event,typing.value);if(enabled){if(challengeMode)judge(edits.isComposing(event));if(enabled)add(count);}});
 function stopHidden(){if(challengeMode&&challenge.phase==='typing'){challenge.fail('화면을 벗어나 도전이 멈췄어요.');finishChallenge();return;}audioEpoch++;transport?.pause();enabled=false;typing.disabled=true;pause.disabled=true;start.disabled=false;start.textContent='이어서 체험';say('화면을 벗어나 재생을 멈췄습니다. 다시 시작해 주세요.');}
 document.addEventListener('visibilitychange',()=>{if(document.hidden)stopHidden();});
 window.addEventListener('pagehide',()=>transport?.pause());
