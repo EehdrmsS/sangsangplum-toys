@@ -3,7 +3,7 @@
 ## 우사기 랩
 
 - 캐릭터·영상: 東宝MOVIEチャンネル 공식 WEBCM https://www.youtube.com/watch?v=sT1A-4zjKqQ
-- 음원 참고: https://www.youtube.com/shorts/62KKrmmfrN8
+- 음원 참고: https://www.youtube.com/watch?v=EDNQYnJkUzk
 - 공식 원본에서 회전 → 정면으로 이어지는 34프레임을 추출했습니다. 배경 마스크와 크롭을 적용했고 생성 이미지는 사용하지 않았습니다.
 - 캐릭터·영상·음원은 각 권리자에게 귀속됩니다.
 

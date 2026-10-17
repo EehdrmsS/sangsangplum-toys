@@ -45,3 +45,23 @@ textarea{left:20px;top:70px;width:calc(100% - 40px);font-size:25px;height:280px}
 .stage.challenge-mode:fullscreen textarea{top:25%;height:18%;font-size:clamp(24px,3vw,46px)}
 #challenge-prompt{position:absolute;left:30px;right:30px;top:66px;z-index:3}.challenge-caption{display:flex;justify-content:space-between;gap:12px;color:#d8c6d7;font-size:12px}.challenge-caption strong{font-weight:600}#challenge-progress{font-variant-numeric:tabular-nums;white-space:nowrap}#challenge-target{font:22px/1.8 'Malgun Gothic',sans-serif;color:#b9b2bb;white-space:pre-wrap;margin:14px 0 0}#challenge-target .correct{color:#b7dfb6}#challenge-target .next{border-bottom:2px solid #e1bbdb}.stage.challenge-mode{height:650px}.challenge-mode textarea{top:210px;height:120px}.challenge-mode .pet{bottom:48px;width:300px}.stage[data-challenge="lost"]{border-color:#be6c75}.stage[data-challenge="won"]{border-color:#7fae86}.stage:fullscreen #challenge-prompt{top:10%}.stage.challenge-mode:fullscreen textarea{top:25%;height:18%}
 @media(max-width:750px){#challenge-prompt{left:20px;right:20px}.challenge-caption{font-size:11px;flex-wrap:wrap}#challenge-target{font-size:20px}.stage.challenge-mode{height:700px}.challenge-mode textarea{top:250px;height:130px}.challenge-mode .pet{bottom:44px;width:290px}.experience-tabs button{flex:1}.stage.challenge-mode:fullscreen textarea{top:38%;height:18%}}
+
+/* Keep the full lyrics readable without covering the input or Usagi. */
+#challenge-target{max-height:100px;overflow-y:auto;scrollbar-width:thin;overscroll-behavior:contain}
+.stage:fullscreen #challenge-target{max-height:11vh;font-size:clamp(18px,2vw,26px)}
+@media(max-width:750px){#challenge-target{max-height:140px}.stage:fullscreen #challenge-target{max-height:20vh}}
+
+/* Karaoke cells: one committed character fills one grey slot. */
+#challenge-target{position:relative;line-height:1.9;white-space:normal;padding:4px 3px 8px;scroll-padding-top:8px}
+#challenge-target .lyric-cell{display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;width:1.45em;height:1.65em;margin:2px;border:1px solid #57525a;border-radius:5px;background:#3e3b41;color:#aaa5ad;line-height:1;box-sizing:border-box}
+#challenge-target .separator{width:1em;color:#817b86;font-size:.85em}
+#challenge-target .correct{background:#b99ac1;border-color:#d1b3d7;color:#211c25}
+#challenge-target .next{background:#534958;border:2px solid #efd2f5;color:#fff;box-shadow:0 0 0 2px #e0b8ec28}
+.stage[data-challenge="lost"] #challenge-target .next{border-color:#f08a96;background:#633e48}
+@media(prefers-reduced-motion:no-preference){#challenge-target .lyric-cell{transition:background-color .12s,color .12s}}
+
+.challenge-success{position:absolute;inset:46px 0 0;z-index:5;display:grid;place-items:center;background:#211b29e8;padding:24px;text-align:center}
+.challenge-success[hidden]{display:none}
+.success-card{max-width:520px;padding:40px 30px;border:1px solid #aa88b4;border-radius:20px;background:#342b3c;box-shadow:0 20px 70px #0005;color:#faf7f1}
+.success-eyebrow{font-size:13px;letter-spacing:.2em;color:#d8b8e3}.success-card h2{font-size:clamp(25px,4vw,42px);margin:16px 0}.success-card p{line-height:1.8}.success-card button{margin-top:20px}
+.stage:fullscreen .challenge-success{top:8%}

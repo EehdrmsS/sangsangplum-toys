@@ -36,7 +36,7 @@
     "image_alt": "마이크를 들고 있는 원본 영상 속 우사기",
     "experience_title": "키보드가 조금 시끄러워집니다.",
     "scope": "이 페이지의 입력창에서만 반응해요.",
-    "script": "demo.js?v=20261017-challenge",
+    "script": "demo.js?v=20261017-clear-screen",
     "steps": [
       [
         "타자를 치면",
@@ -51,6 +51,6 @@
         "멈춘 위치부터 이어집니다. 음원이 끝나면 처음으로 돌아가요."
       ]
     ],
-    "credits": "영상: <a href=\"https://www.youtube.com/watch?v=sT1A-4zjKqQ\" target=\"_blank\" rel=\"noopener noreferrer\">東宝MOVIEチャンネル 공식 WEBCM ↗</a> · <a href=\"https://www.youtube.com/shorts/62KKrmmfrN8\" target=\"_blank\" rel=\"noopener noreferrer\">음원 참고 영상 ↗</a><br>캐릭터·영상·음원의 권리는 각 권리자에게 있습니다. 원본에서 배경을 제거했으며 생성 이미지는 사용하지 않았습니다."
+    "credits": "영상: <a href=\"https://www.youtube.com/watch?v=sT1A-4zjKqQ\" target=\"_blank\" rel=\"noopener noreferrer\">東宝MOVIEチャンネル 공식 WEBCM ↗</a> · <a href=\"https://www.youtube.com/watch?v=EDNQYnJkUzk\" target=\"_blank\" rel=\"noopener noreferrer\">음원 참고 영상 ↗</a><br>캐릭터·영상·음원의 권리는 각 권리자에게 있습니다. 원본에서 배경을 제거했으며 생성 이미지는 사용하지 않았습니다."
   }
 ]
