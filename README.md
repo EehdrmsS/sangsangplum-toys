@@ -7,7 +7,7 @@ Clap Cat과 우사기 랩의 소스 및 설치 없는 브라우저 체험입니�
 | Clap Cat | [브라우저에서 만나기](https://sangsangplum.pages.dev/clap-cat/) | 간식 → 박수 → 클릭하면 쉿과 악수 |
 | 우사기 랩 | [브라우저에서 타이핑하기](https://sangsangplum.pages.dev/usagi-rap/) | 입력 한 번당 원음 0.3초씩 이어서 재생 |
 
-**이 저장소에는 Windows EXE·설치 ZIP·GitHub Releases가 없습니다.** 우사기 Windows 다운로드는 아직 공개하지 않습니다. 소스 실행은 개발자를 위한 경로이며, 일반 이용자는 위 웹 체험을 선택하세요.
+**우사기 랩 Windows EXE는 [공식 사이트에서 다운로드](https://sereplum.com/usagi-rap/#source)할 수 있습니다.** 설치 없이 실행하며, 입력한 글은 저장하거나 전송하지 않습니다. 디지털 서명이 없는 개인 제작 앱으로 Windows에서 실행 경고가 표시될 수 있습니다. 이 저장소에는 EXE·설치 ZIP·GitHub Releases를 올리지 않으며, 아래 소스 실행은 개발자를 위한 경로입니다. Clap Cat EXE 다운로드는 제공하지 않습니다.
 
 ## 설치 없이 체험
 
@@ -64,7 +64,7 @@ python -m http.server 8080 --directory web
 
 ---
 
-Two small toys by Sangsangplum. Try them in your browser using the links above. This repository shares the desktop and web source; it does not distribute Windows executables. Media rights remain with their respective owners. The Clap Cat web demo does not detect local Git pushes. Usagi Rap reacts only inside its web demo input field.
+Two small toys by Sangsangplum. Try them in your browser using the links above. This repository shares the desktop and web source; the Usagi Rap Windows executable is available on the official website; executables are not hosted in this repository. Media rights remain with their respective owners. The Clap Cat web demo does not detect local Git pushes. Usagi Rap reacts only inside its web demo input field.
 
 ## 체험 페이지 디자인 규칙
 
