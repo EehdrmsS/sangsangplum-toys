@@ -24,7 +24,8 @@
         "박수를 멈추고 쉿, 그리고 악수합니다. 간식은 언제든 다시 줄 수 있어요."
       ]
     ],
-    "credits": "Cat footage: <a href=\"https://www.tiktok.com/@merkurianin/video/7689433455318387975\" target=\"_blank\" rel=\"noopener noreferrer\">@merkurianin ↗</a> · GitHub mark: GitHub.<br>영상·캐릭터의 권리는 원작자에게 있습니다. GitHub 공식 제품이 아닙니다."
+    "credits": "Cat footage: <a href=\"https://www.tiktok.com/@merkurianin/video/7689433455318387975\" target=\"_blank\" rel=\"noopener noreferrer\">@merkurianin ↗</a> · GitHub mark: GitHub.<br>영상·캐릭터의 권리는 원작자에게 있습니다. GitHub 공식 제품이 아닙니다.",
+    "enabled": false
   },
   {
     "slug": "usagi-rap",
@@ -51,6 +52,7 @@
         "멈춘 위치부터 이어집니다. 음원이 끝나면 처음으로 돌아가요."
       ]
     ],
-    "credits": "영상: <a href=\"https://www.youtube.com/watch?v=sT1A-4zjKqQ\" target=\"_blank\" rel=\"noopener noreferrer\">東宝MOVIEチャンネル 공식 WEBCM ↗</a> · <a href=\"https://www.youtube.com/watch?v=EDNQYnJkUzk\" target=\"_blank\" rel=\"noopener noreferrer\">음원 참고 영상 ↗</a><br>캐릭터·영상·음원의 권리는 각 권리자에게 있습니다. 원본에서 배경을 제거했으며 생성 이미지는 사용하지 않았습니다."
+    "credits": "영상: <a href=\"https://www.youtube.com/watch?v=sT1A-4zjKqQ\" target=\"_blank\" rel=\"noopener noreferrer\">東宝MOVIEチャンネル 공식 WEBCM ↗</a> · <a href=\"https://www.youtube.com/watch?v=EDNQYnJkUzk\" target=\"_blank\" rel=\"noopener noreferrer\">음원 참고 영상 ↗</a><br>캐릭터·영상·음원의 권리는 각 권리자에게 있습니다. 원본에서 배경을 제거했으며 생성 이미지는 사용하지 않았습니다.",
+    "enabled": false
   }
 ]

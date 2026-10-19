@@ -1,19 +1,19 @@
 # 상상자두 · 작은 데스크톱 토이
 
-Clap Cat과 우사기 랩의 소스 및 설치 없는 브라우저 체험입니다.
+Clap Cat과 우사기 랩의 미디어를 제외한 코드 보관본입니다. 웹 체험과 실행 파일 배포는 중단했습니다.
 
 | 프로젝트 | 바로 체험 | 동작 |
 | --- | --- | --- |
-| Clap Cat | [브라우저에서 만나기](https://sangsangplum.pages.dev/clap-cat/) | 간식 → 박수 → 클릭하면 쉿과 악수 |
+| Clap Cat | 제공 중단 | 웹 체험·미디어 배포 중단 (2026-10-20) |
 | 우사기 랩 | 제공 중단 | 웹 체험·Windows EXE 배포 중단 (2026-10-20) |
 
 **2026-10-20부터 우사기 랩 웹 체험과 Windows EXE 배포를 중단했습니다.** 이 저장소에는 EXE·설치 ZIP·GitHub Releases를 제공하지 않습니다. 기존 소스는 보존하며, 아래 내용은 소스 보관 기록입니다. Clap Cat EXE 다운로드도 제공하지 않습니다.
 
 ## 설치 없이 체험
 
-Clap Cat 링크를 열고 소리를 켠 뒤 체험하세요. 웹 고양이는 실제 로컬 `git push`를 감지하지 않습니다. 우사기 랩 웹 체험은 제공을 중단했습니다.
+두 서비스 모두 웹 체험 제공을 중단했습니다. 원작·가공 이미지와 오디오는 저장소에서 제거했으며 로컬 archive에 보존합니다. 기존 코드는 보관 목적으로 남겼으며 필요한 미디어가 없으므로 그대로 실행할 수 없습니다. 미디어를 자동으로 다운로드하는 기능은 제공하지 않습니다.
 
-## 소스 내려받기와 실행
+## 소스 보관 기록 (실행 안내 중단)
 
 ```powershell
 git clone https://github.com/EehdrmsS/sangsangplum-toys.git
@@ -64,7 +64,7 @@ python -m http.server 8080 --directory web
 
 ---
 
-Source archive for two small toys by Sangsangplum. The Usagi Rap web demo and Windows executable distribution were discontinued on October 20, 2026. Existing source is preserved; no executables are hosted here. The Clap Cat web demo remains available and does not detect local Git pushes. Media rights remain with their respective owners.
+Code-only archive for two small toys by Sangsangplum. Both web demos and executable distribution are discontinued. Third-party images, animation frames, and audio were removed from the current tree on October 20, 2026. The retained code cannot run without the removed media. Media rights remain with their respective owners; historical Git commits may still contain old files until separately cleaned.
 
 ## 체험 페이지 디자인 규칙
 
