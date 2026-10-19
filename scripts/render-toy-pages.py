@@ -9,6 +9,12 @@ template=Template((folder/'page.html').read_text(encoding='utf-8'))
 check='--check' in sys.argv
 for page in pages:
  data=dict(page)
+ if not page.get('enabled',True):
+  rendered=(folder/'unavailable.html').read_text(encoding='utf-8')
+  target=root/'web'/page['slug']/'index.html'
+  if check:assert target.read_text(encoding='utf-8')==rendered,'Disabled page drift: '+page['slug']
+  else:target.write_text(rendered,encoding='utf-8')
+  continue
  other=next(x for x in pages if x['slug']!=page['slug'])
  data.update(other_slug=other['slug'],other_name=other['name'])
  for part in ['experience','extra']:data[part]=(folder/page['slug']/(part+'.html')).read_text(encoding='utf-8').strip()

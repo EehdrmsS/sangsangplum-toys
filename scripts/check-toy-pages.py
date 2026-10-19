@@ -15,6 +15,10 @@ pages=json.loads((root/'templates/toys/pages.json').read_text(encoding='utf-8'))
 for page in pages:
     slug=page['slug'];p=Page();s=(root/'web'/slug/'index.html').read_text(encoding='utf-8');p.feed(s)
     assert len(p.ids)==len(set(p.ids)),f'Duplicate IDs: {slug}'
+    if not page.get('enabled',True):
+        assert '서비스 제공이 중단되었습니다.' in s
+        assert '<script' not in s and '<img' not in s and '<audio' not in s
+        continue
     assert 'experience' in p.ids and 'source' in p.ids
     assert '/assets/toy-page.css?v=1' in p.css
     assert '#source' in p.links and '#experience' in p.links
@@ -26,4 +30,7 @@ for page in pages:
     for identity in (['try','inline','push','cat','close','sound','reset'] if slug=='clap-cat' else ['start','shorter','longer','duration','pause','reset','typing','pet','stage','fullscreen','exit-fullscreen']):
         assert identity in p.ids,f'Missing interaction ID {slug}/{identity}'
 assert not list((root/'web').rglob('*.zip*')) and not list((root/'web').rglob('*.exe'))
-print('PASS: shared styles, unique IDs, interaction hooks, source links and closed downloads')
+media_extensions={'.png','.jpg','.jpeg','.webp','.gif','.ico','.svg','.wav','.mp3','.mp4','.webm','.ogg','.m4a'}
+for folder in ['clap-cat/assets','usagi-rap/src','web/clap-cat','web/usagi-rap']:
+    assert not [p for p in (root/folder).rglob('*') if p.is_file() and p.suffix.lower() in media_extensions],folder
+print('PASS: disabled toy shells, no third-party toy media or executables')
