@@ -5,13 +5,13 @@ Clap Cat과 우사기 랩의 소스 및 설치 없는 브라우저 체험입니�
 | 프로젝트 | 바로 체험 | 동작 |
 | --- | --- | --- |
 | Clap Cat | [브라우저에서 만나기](https://sangsangplum.pages.dev/clap-cat/) | 간식 → 박수 → 클릭하면 쉿과 악수 |
-| 우사기 랩 | [브라우저에서 타이핑하기](https://sangsangplum.pages.dev/usagi-rap/) | 입력 한 번당 원음 0.3초씩 이어서 재생 |
+| 우사기 랩 | 제공 중단 | 웹 체험·Windows EXE 배포 중단 (2026-10-20) |
 
-**우사기 랩 Windows EXE는 [공식 사이트에서 다운로드](https://sereplum.com/usagi-rap/#source)할 수 있습니다.** 설치 없이 실행하며, 입력한 글은 저장하거나 전송하지 않습니다. 디지털 서명이 없는 개인 제작 앱으로 Windows에서 실행 경고가 표시될 수 있습니다. 이 저장소에는 EXE·설치 ZIP·GitHub Releases를 올리지 않으며, 아래 소스 실행은 개발자를 위한 경로입니다. Clap Cat EXE 다운로드는 제공하지 않습니다.
+**2026-10-20부터 우사기 랩 웹 체험과 Windows EXE 배포를 중단했습니다.** 이 저장소에는 EXE·설치 ZIP·GitHub Releases를 제공하지 않습니다. 기존 소스는 보존하며, 아래 내용은 소스 보관 기록입니다. Clap Cat EXE 다운로드도 제공하지 않습니다.
 
 ## 설치 없이 체험
 
-위 링크를 열고 소리를 켠 뒤 체험하세요. 웹 고양이는 실제 로컬 `git push`를 감지하지 않습니다. 웹 우사기는 해당 페이지의 입력창에서만 반응합니다.
+Clap Cat 링크를 열고 소리를 켠 뒤 체험하세요. 웹 고양이는 실제 로컬 `git push`를 감지하지 않습니다. 우사기 랩 웹 체험은 제공을 중단했습니다.
 
 ## 소스 내려받기와 실행
 
@@ -64,7 +64,7 @@ python -m http.server 8080 --directory web
 
 ---
 
-Two small toys by Sangsangplum. Try them in your browser using the links above. This repository shares the desktop and web source; the Usagi Rap Windows executable is available on the official website; executables are not hosted in this repository. Media rights remain with their respective owners. The Clap Cat web demo does not detect local Git pushes. Usagi Rap reacts only inside its web demo input field.
+Source archive for two small toys by Sangsangplum. The Usagi Rap web demo and Windows executable distribution were discontinued on October 20, 2026. Existing source is preserved; no executables are hosted here. The Clap Cat web demo remains available and does not detect local Git pushes. Media rights remain with their respective owners.
 
 ## 체험 페이지 디자인 규칙
 
@@ -77,6 +77,6 @@ python scripts/check-toy-pages.py
 
 ## 우사기 랩 가사 도전
 
-[우사기 랩 도전 탭](https://sangsangplum.pages.dev/usagi-rap/#challenge)에서 첫 소절을 오타 없이 이어 쳐보세요. 오타 또는 재생 분량 소진 시 종료되며 다시 도전할 수 있습니다. 시작 전 입력당 길이를 조절할 수 있습니다. 기존 자유 입력 체험도 그대로 사용할 수 있습니다.
+웹 체험은 2026-10-20에 제공을 중단했습니다. 기존 챌린지 소스와 판정 검사는 보관합니다.
 
 판정 검사: `node scripts/test-rap-challenge.mjs`
